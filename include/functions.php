@@ -1,7 +1,9 @@
 <?php
+require_once 'require_common.php';
+
 function escape_string($string){
-    global $con;
-    return htmlspecialchars(mysqli_escape_string($con, $string));
+    global $conn;
+    return htmlentities(mysqli_escape_string($conn, $string));
 }
 
 function get($param){
@@ -29,4 +31,11 @@ function request($param){
     } else {
         return null;
     }
+}
+
+function base_url($url){
+    $self = $_SERVER["PHP_SELF"];
+    $self = substr($self, 0, strpos($self, "index.php"));
+    $self = "http://" . $_SERVER["HTTP_HOST"] . $self. $url;
+    return $self;
 }
